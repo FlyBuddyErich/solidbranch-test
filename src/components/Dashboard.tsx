@@ -81,12 +81,11 @@ const additionalWidgets: WidgetConfig[] = [
 const allWidgets = [...defaultWidgets, ...additionalWidgets]
 
 const Dashboard = () => {
-  // State for tracking widgets and their layouts
-  const [widgets, setWidgets] = useState<WidgetConfig[]>(defaultWidgets)
+  // State for tracking active widgets and their layouts
+  const [activeWidgets, setActiveWidgets] = useState<string[]>(defaultWidgets.map((w) => w.id))
   const [layouts, setLayouts] = useState<{ [key: string]: Layout[] }>(defaultLayouts)
   const [isEditing, setIsEditing] = useState(false)
   const [tempLayouts, setTempLayouts] = useState<{ [key: string]: Layout[] }>({})
-  const [activeWidgets, setActiveWidgets] = useState<string[]>(defaultWidgets.map((w) => w.id))
 
   // Load layouts and widgets from localStorage on component mount
   useEffect(() => {
@@ -104,7 +103,6 @@ const Dashboard = () => {
 
       if (savedWidgets) {
         const parsedWidgets = JSON.parse(savedWidgets) as WidgetConfig[]
-        setWidgets(parsedWidgets)
         setActiveWidgets(parsedWidgets.map((w) => w.id))
       }
     } catch (error) {
@@ -114,7 +112,7 @@ const Dashboard = () => {
   }, [])
 
   // Handle layout changes
-  const handleLayoutChange = (currentLayout: Layout[], allLayouts: { [key: string]: Layout[] }) => {
+  const handleLayoutChange = (_: Layout[], allLayouts: { [key: string]: Layout[] }) => {
     if (isEditing) {
       setTempLayouts(allLayouts)
     } else {
@@ -143,7 +141,6 @@ const Dashboard = () => {
 
     // Save the active widgets
     const updatedWidgets = allWidgets.filter((w) => activeWidgets.includes(w.id))
-    setWidgets(updatedWidgets)
     localStorage.setItem("dashboard-widgets", JSON.stringify(updatedWidgets))
 
     setIsEditing(false)
