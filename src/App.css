@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Red placeholder for dragging */
+.react-grid-item.react-grid-placeholder {
+  background: rgba(255, 0, 0, 0.2);
+  border: 2px solid rgba(255, 0, 0, 0.4);
+  border-radius: 0.5rem;
+  opacity: 0.7;
+  transition-duration: 100ms;
+  z-index: 2;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+/* Resize handle styling */
+.react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  bottom: 0;
+  right: 0;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2IDYiIHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiNmZmZmZmYwMCIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iNnB4Ij48ZyBvcGFjaXR5PSIwLjMwMiI+PHBhdGggZD0iTSA2IDYgTCAwIDYgTCAwIDQuMiBMIDQgNC4yIEwgNC4yIDQuMiBMIDQuMiAwIEwgNiAwIEwgNiA2IEwgNiA2IFoiIGZpbGw9IiMwMDAwMDAiLz48L2c+PC9zdmc+");
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  cursor: se-resize;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Show resize handle on hover when in edit mode */
+.react-grid-item.react-draggable:hover .react-resizable-handle {
+  opacity: 0.8;
+}
+
+/* Make the header of widgets draggable */
+.draggable-handle {
+  cursor: move;
+}
+
+/* Prevent text selection during drag */
+.react-grid-item {
+  user-select: none;
+}
+
+/* Add a subtle border to indicate resizable widgets in edit mode */
+.react-grid-item.react-draggable {
+  border: 1px dashed transparent;
+  transition: border-color 0.2s;
+}
+
+.react-grid-item.react-draggable:hover {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
